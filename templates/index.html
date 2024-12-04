@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static',filename='bootstrap/css/stylesheet.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='bootstrap/css/bootstrap.min.css')}}">
+    <title>Todo list project</title>
+</head>
+<body>
+    <center>
+    <h3 class="heading">TODO LIST</h3>
+    <form action="/add" method="POST">
+        <label for="todo">Enter task</label>
+        <input type="text" name="todo" placeholder="Enter your task" required />
+        <input type="submit" class="btn-primary" value="submit"/>
+    </form>
+    <table class="table table-striped table-bordered tab">
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>TASK</td>
+                <td>STATUS</td>
+                <td>ACTIONS</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for todo in todo_list %}
+            <tr>
+                <td>{{todo.id}}</td>
+                <td>{{todo.name}}</td>
+                {% if todo.done==False %}
+                <td>Not done</td>
+                {% else %}
+                <td>Done</td>
+                {% endif %}
+                <td><a class=" btn btn-primary" href="/update/{{todo.id}}">Update</a>
+                <a class="btn btn-danger" href="/delete/{{todo.id}}">Delete</a></td>
+            </tr>
+            {% endfor %}
+            
+
+        </tbody>
+    </table>
+</center>
+<script src="{{url_for('static',filename='bootstrap/js/bootstrap.min.js')}}"></script>
+</body>
+</html>
